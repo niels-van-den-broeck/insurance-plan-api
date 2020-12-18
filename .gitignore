@@ -1,1 +1,5 @@
+# external deps
 node_modules
+
+# dotenv config files
+.env
