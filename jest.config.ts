@@ -2,11 +2,14 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: [
-    '**/?(*.)+(test).[jt]s',
+    '**/?(*.)+(test).ts',
   ],
   testPathIgnorePatterns: ['dist'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
+  ],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
   ],
 };
