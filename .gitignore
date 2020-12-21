@@ -3,3 +3,6 @@ node_modules
 
 # dotenv config files
 .env
+
+# jest coverage files
+coverage

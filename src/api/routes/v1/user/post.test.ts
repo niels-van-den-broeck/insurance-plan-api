@@ -33,17 +33,21 @@ describe('POST /api/v1/login', () => {
     });
   }
 
+  type Params = {
+    userName?: string | null,
+    password?: string | null,
+  }
   function act({
     userName = 'Qover',
     password = 'Ninja',
-  } = {}) {
+  }: Params = {}) {
     const app = buildApp();
 
     return request(app)
       .post('/api/v1/login')
       .send({
-        userName,
-        password,
+        userName: userName || undefined,
+        password: password || undefined,
       });
   }
 
@@ -75,6 +79,22 @@ describe('POST /api/v1/login', () => {
     });
 
     // TODO: Check cookie in detail..
+  });
+
+  describe('HTTP 1.1/400 Bad Request', () => {
+    test('it returns the status when no password is given', async () => {
+      await act({
+        userName: 'Qover',
+        password: null,
+      }).expect(400);
+    });
+
+    test('it returns the status when no userName is given', async () => {
+      await act({
+        userName: null,
+        password: 'test',
+      }).expect(400);
+    });
   });
 
   describe('HTTP 1.1/401 Unauthorized', () => {
